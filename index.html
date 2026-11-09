@@ -30,6 +30,7 @@ h2{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:600;margi
 .dd{font-family:"Cormorant Garamond",serif;font-size:1.7rem;font-weight:700;line-height:1.1;color:var(--gold);text-transform:capitalize}
 .dt{color:var(--mute);font-size:.92rem;margin-top:2px}
 .nm{font-size:1.15rem;font-weight:600;margin-top:8px}
+.sv{color:var(--gold2);margin-top:2px;font-weight:500}
 .ed{flex:none;padding:7px 13px;font-size:.9rem}
 .empty{border:1px dashed var(--line);border-radius:16px;padding:30px 18px;text-align:center;color:var(--mute);margin-bottom:28px}
 .empty b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--ink);font-weight:600;margin-bottom:4px}
@@ -74,6 +75,8 @@ dialog input:focus{border-color:var(--gold);outline:none}
   <h3 id="dlgT">Novo agendamento</h3>
   <label for="nome">Nome da cliente</label>
   <input id="nome" autocomplete="off">
+  <label for="servico">Serviço</label>
+  <input id="servico" autocomplete="off" placeholder="Ex.: corte, mechas, escova">
   <label for="data">Data</label>
   <input id="data" type="date">
   <p class="sem" id="sem"></p>
@@ -118,6 +121,7 @@ function secao(el, titulo, lista, vazio){
     const dt = document.createElement('div'); dt.className = 'dt'; dt.textContent = dataLonga(d) + (a.time ? ' · às ' + a.time : '');
     const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = a.name;
     t.append(dd, dt, nm);
+    if (a.service){ const sv = document.createElement('div'); sv.className = 'sv'; sv.textContent = a.service; t.appendChild(sv); }
     const b = document.createElement('button'); b.className = 'btn ed'; b.textContent = 'Editar'; b.setAttribute('aria-label', 'Editar ' + a.name);
     b.onclick = () => abrir(a);
     c.append(t, b); box.appendChild(c);
@@ -175,6 +179,7 @@ function abrir(a){
   editId = a ? a.id : null;
   $('dlgT').textContent = a ? 'Editar agendamento' : 'Novo agendamento';
   $('nome').value = a ? a.name : '';
+  $('servico').value = a ? (a.service || '') : '';
   $('data').value = a ? a.date : iso(new Date());
   $('hora').value = a ? (a.time || '') : '09:00';
   $('err').textContent = ''; $('excluir').hidden = !a;
@@ -188,8 +193,8 @@ $('salvar').onclick = () => {
   if (!$('data').value){ $('err').textContent = 'Escolha a data.'; return; }
   if (!$('hora').value){ $('err').textContent = 'Escolha o horário.'; return; }
   const i = dados.findIndex(x => x.id === editId);
-  if (i >= 0){ dados[i] = Object.assign({}, dados[i], { name: nome, date: $('data').value, time: $('hora').value }); }
-  else dados.push({ id: String(Date.now()), name: nome, date: $('data').value, time: $('hora').value });
+  if (i >= 0){ dados[i] = Object.assign({}, dados[i], { name: nome, service: $('servico').value.trim(), date: $('data').value, time: $('hora').value }); }
+  else dados.push({ id: String(Date.now()), name: nome, service: $('servico').value.trim(), date: $('data').value, time: $('hora').value });
   salvarLocal(); $('dlg').close(); render();
 };
 $('cancelar').onclick = () => $('dlg').close();
