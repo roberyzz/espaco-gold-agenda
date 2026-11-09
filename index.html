@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espaço Gold · Agenda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0908;--panel:#15120e;--panel2:#1d1913;--line:#3a2f1c;--gold:#d4af37;--gold2:#f3dc8a;--gold3:#8f6f1c;--ink:#f4ecd8;--mute:#a39879;--bad:#e2705a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:radial-gradient(900px 400px at 50% -80px,#2a2110 0,transparent 70%),var(--bg);color:var(--ink);font-family:Jost,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.45;min-height:100vh}
+main{max-width:620px;margin:0 auto;padding:26px 16px 70px}
+.brand{text-align:center;margin-bottom:24px}
+.logo{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(2.6rem,11vw,3.8rem);line-height:1;margin:0;background:linear-gradient(100deg,var(--gold3),var(--gold2) 40%,var(--gold) 60%,var(--gold3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{color:var(--mute);margin:6px 0 0;font-size:.95rem}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+.btn{border:1px solid var(--line);background:var(--panel2);border-radius:10px;padding:9px 15px;cursor:pointer;font-weight:500}
+.btn:hover{border-color:var(--gold)}
+.gold{background:linear-gradient(160deg,var(--gold2),var(--gold) 55%,var(--gold3));color:#1a1405;border-color:var(--gold2);font-weight:600}
+.novo{display:block;width:100%;padding:14px;font-size:1.05rem;margin-bottom:26px;border-radius:14px}
+h2{font-family:"Cormorant Garamond",serif;font-size:1.6rem;font-weight:600;margin:0 0 12px}
+.cards{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.card{display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--gold);border-radius:16px;padding:16px 18px}
+.card.hoje{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold3) inset}
+.card.passou{opacity:.6;border-left-color:var(--gold3)}
+.dd{font-family:"Cormorant Garamond",serif;font-size:1.7rem;font-weight:700;line-height:1.1;color:var(--gold);text-transform:capitalize}
+.dt{color:var(--mute);font-size:.92rem;margin-top:2px}
+.nm{font-size:1.15rem;font-weight:600;margin-top:8px}
+.ed{flex:none;padding:7px 13px;font-size:.9rem}
+.empty{border:1px dashed var(--line);border-radius:16px;padding:30px 18px;text-align:center;color:var(--mute);margin-bottom:28px}
+.empty b{display:block;font-family:"Cormorant Garamond",serif;font-size:1.5rem;color:var(--ink);font-weight:600;margin-bottom:4px}
+.tit{font-size:1.9rem;margin:0 0 14px}
+.resumo{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.resumo span{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:6px 14px;color:var(--mute);font-size:.92rem}
+.resumo b{color:var(--gold2);font-weight:600}
+.mes{margin-bottom:22px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.mes>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-family:"Cormorant Garamond",serif;font-size:2rem;font-weight:700;color:var(--gold);text-transform:capitalize;padding:6px 0 14px}
+.mes>summary::-webkit-details-marker{display:none}
+.mes>summary .n{font-family:Jost,sans-serif;font-size:.92rem;font-weight:400;color:var(--mute);text-transform:none}
+.mes>summary::after{content:"\25BE";font-size:1rem;color:var(--gold3);margin-left:auto;padding-left:10px;transition:transform .2s}
+.mes:not([open])>summary::after{transform:rotate(-90deg)}
+.mes:not([open])>summary{padding-bottom:10px}
+.semana h2{font-family:Jost,system-ui,sans-serif;font-size:.98rem;font-weight:500;color:var(--mute);margin:0 0 10px;padding-left:2px}
+.semana .cards{margin-bottom:20px}
+dialog{border:1px solid var(--gold3);border-radius:18px;background:var(--panel);color:var(--ink);width:min(420px,calc(100% - 24px));padding:22px}
+dialog::backdrop{background:rgba(0,0,0,.72)}
+dialog h3{font-family:"Cormorant Garamond",serif;font-size:1.8rem;margin:0 0 6px;color:var(--gold)}
+label{display:block;font-weight:500;font-size:.9rem;margin:12px 0 4px;color:var(--mute)}
+dialog input{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px;color-scheme:dark}
+dialog input:focus{border-color:var(--gold);outline:none}
+.sem{color:var(--gold2);font-weight:600;margin:6px 0 0;min-height:1.4em;text-transform:capitalize}
+.err{color:var(--bad);min-height:1.3em;margin:10px 0 0;font-weight:500}
+.foot{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}.foot .sp{flex:1}
+.del{color:var(--bad)}
+@media (prefers-reduced-motion:no-preference){dialog[open]{animation:pop .2s ease-out}@keyframes pop{from{transform:translateY(10px);opacity:0}}}
+</style>
+</head>
+<body>
+<main>
+  <header class="brand">
+    <h1 class="logo">Espaço Gold</h1>
+    <p class="tag">Agenda de clientes</p>
+  </header>
+  <button class="btn gold novo" id="novo">Novo agendamento</button>
+  <section id="prox"></section>
+  <section id="ant"></section>
+</main>
+
+<dialog id="dlg">
+  <h3 id="dlgT">Novo agendamento</h3>
+  <label for="nome">Nome da cliente</label>
+  <input id="nome" autocomplete="off">
+  <label for="data">Data</label>
+  <input id="data" type="date">
+  <p class="sem" id="sem"></p>
+  <label for="hora">Horário</label>
+  <input id="hora" type="time">
+  <p class="err" id="err" role="alert"></p>
+  <div class="foot">
+    <button class="btn gold" id="salvar">Salvar</button>
+    <button class="btn" id="cancelar">Cancelar</button>
+    <span class="sp"></span>
+    <button class="btn del" id="excluir" hidden>Excluir</button>
+  </div>
+</dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+const KEY = 'agenda-salao-v1';
+let dados = [];
+try { dados = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { dados = []; }
+const salvarLocal = () => { try { localStorage.setItem(KEY, JSON.stringify(dados)); } catch (e) {} };
+
+const pad = n => String(n).padStart(2,'0');
+const iso = d => d.getFullYear() + '-' + pad(d.getMonth()+1) + '-' + pad(d.getDate());
+const parse = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
+const semana = d => d.toLocaleDateString('pt-BR',{weekday:'long'});
+const dataLonga = d => d.toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
+let editId = null;
+
+function secao(el, titulo, lista, vazio){
+  el.innerHTML = '';
+  if (!lista.length && !vazio) return;
+  const h = document.createElement('h2'); h.textContent = titulo; el.appendChild(h);
+  if (!lista.length){ el.insertAdjacentHTML('beforeend', vazio); return; }
+  const box = document.createElement('div'); box.className = 'cards';
+  const hoje = iso(new Date());
+  lista.forEach(a => {
+    const d = parse(a.date);
+    const c = document.createElement('article');
+    c.className = 'card' + (a.date === hoje ? ' hoje' : '') + (a.date < hoje ? ' passou' : '');
+    const t = document.createElement('div');
+    const dd = document.createElement('div'); dd.className = 'dd'; dd.textContent = semana(d) + (a.date === hoje ? ' · hoje' : '');
+    const dt = document.createElement('div'); dt.className = 'dt'; dt.textContent = dataLonga(d) + (a.time ? ' · às ' + a.time : '');
+    const nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = a.name;
+    t.append(dd, dt, nm);
+    const b = document.createElement('button'); b.className = 'btn ed'; b.textContent = 'Editar'; b.setAttribute('aria-label', 'Editar ' + a.name);
+    b.onclick = () => abrir(a);
+    c.append(t, b); box.appendChild(c);
+  });
+  el.appendChild(box);
+}
+
+function semIni(d){ const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
+const curto = d => d.toLocaleDateString('pt-BR',{day:'numeric',month:'short'}).replace('.','');
+function rotuloSemana(ini){
+  const fim = new Date(ini); fim.setDate(ini.getDate() + 6);
+  const dif = Math.round((ini - semIni(new Date())) / 604800000);
+  const pre = dif === 0 ? 'Esta semana · ' : dif === 1 ? 'Próxima semana · ' : dif === -1 ? 'Semana passada · ' : 'Semana de ';
+  return pre + curto(ini) + ' a ' + curto(fim);
+}
+function grupo(lista, aberto){
+  const meses = {};
+  lista.forEach(a => { const k = a.date.slice(0,7); (meses[k] = meses[k] || []).push(a); });
+  const frag = document.createDocumentFragment();
+  Object.keys(meses).forEach(k => {
+    const itens = meses[k];
+    const det = document.createElement('details'); det.className = 'mes'; det.open = aberto;
+    const sm = document.createElement('summary');
+    const nome = document.createElement('span'); nome.textContent = parse(k + '-01').toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+    const n = document.createElement('span'); n.className = 'n'; n.textContent = itens.length + (itens.length === 1 ? ' cliente' : ' clientes');
+    sm.append(nome, n); det.appendChild(sm);
+    const sem = {};
+    itens.forEach(a => { const s = iso(semIni(parse(a.date))); (sem[s] = sem[s] || []).push(a); });
+    Object.keys(sem).forEach(s => { const bloco = document.createElement('div'); bloco.className = 'semana'; secao(bloco, rotuloSemana(parse(s)), sem[s], ''); det.appendChild(bloco); });
+    frag.appendChild(det);
+  });
+  return frag;
+}
+function render(){
+  const hoje = iso(new Date());
+  const ord = (x, y) => x.date === y.date ? (x.time || '').localeCompare(y.time || '') : x.date.localeCompare(y.date);
+  const prox = dados.filter(a => a.date >= hoje).sort(ord);
+  const ant = dados.filter(a => a.date < hoje).sort((x, y) => ord(y, x));
+  const P = $('prox'); P.innerHTML = '';
+  if (!prox.length){ P.innerHTML = '<div class="empty"><b>Nenhuma cliente marcada</b>Toque em Novo agendamento para marcar.</div>'; }
+  else {
+    const sIni = iso(semIni(new Date())), mesAtual = hoje.slice(0,7);
+    const nSem = prox.filter(a => iso(semIni(parse(a.date))) === sIni).length, nMes = prox.filter(a => a.date.slice(0,7) === mesAtual).length;
+    const cl = n => '<b>' + n + '</b> ' + (n === 1 ? 'cliente' : 'clientes');
+    P.insertAdjacentHTML('beforeend', '<p class="resumo"><span>Esta semana: ' + cl(nSem) + '</span><span>Este mês: ' + cl(nMes) + '</span></p>');
+    P.appendChild(grupo(prox, true));
+  }
+  const A = $('ant'); A.innerHTML = '';
+  if (ant.length){ const h = document.createElement('h2'); h.className = 'tit'; h.textContent = 'Anteriores'; A.appendChild(h); A.appendChild(grupo(ant, false)); }
+}
+
+function mostrarSemana(){ $('sem').textContent = $('data').value ? semana(parse($('data').value)) : ''; }
+
+function abrir(a){
+  editId = a ? a.id : null;
+  $('dlgT').textContent = a ? 'Editar agendamento' : 'Novo agendamento';
+  $('nome').value = a ? a.name : '';
+  $('data').value = a ? a.date : iso(new Date());
+  $('hora').value = a ? (a.time || '') : '09:00';
+  $('err').textContent = ''; $('excluir').hidden = !a;
+  mostrarSemana(); $('dlg').showModal(); $('nome').focus();
+}
+
+$('data').oninput = mostrarSemana;
+$('salvar').onclick = () => {
+  const nome = $('nome').value.trim();
+  if (!nome){ $('err').textContent = 'Digite o nome da cliente.'; return; }
+  if (!$('data').value){ $('err').textContent = 'Escolha a data.'; return; }
+  if (!$('hora').value){ $('err').textContent = 'Escolha o horário.'; return; }
+  const i = dados.findIndex(x => x.id === editId);
+  if (i >= 0){ dados[i] = Object.assign({}, dados[i], { name: nome, date: $('data').value, time: $('hora').value }); }
+  else dados.push({ id: String(Date.now()), name: nome, date: $('data').value, time: $('hora').value });
+  salvarLocal(); $('dlg').close(); render();
+};
+$('cancelar').onclick = () => $('dlg').close();
+$('excluir').onclick = () => { dados = dados.filter(x => x.id !== editId); salvarLocal(); $('dlg').close(); render(); };
+$('novo').onclick = () => abrir(null);
+render();
+</script>
+</body>
+</html>
